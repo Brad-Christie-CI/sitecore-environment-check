@@ -3,10 +3,17 @@
 # Windows 10 (32/64)     10.0*
 # Windows 8.1 (32/64)    6.3*
 
-$osVersion = [System.Environment]::OSVersion.Version
-$verString = "$($osVersion.Major).$($osVersion.Minor)"
+$result = "Inconslusive"
+$summary = ""
+
+$osVersion = [System.Environment]::OSVersion
+$verString = "$($osVersion.Version.Major).$($osVersion.Version.Minor)"
 If ($verString -eq "10.0" -or $verString -eq "6.3") {
-  Out-TestResult "OS" "Pass" "Windows $($osVersion) installed"
+  $result = "Pass"
+  $summary = "Found Windows $($osVersion.VersionString)"
 } Else {
-  Out-TestResult "OS" "Fail" "Unsupported OS $($osVersion), expecting Windows 8.1/10 or Windows Server 2012R2/2016"
+  $result = "Fail"
+  $summary = "Unsupported OS $($osVersion.VersionString)"
 }
+
+Out-TestResult "Windows 8.1/10 or Windows Server 2012R2/2016" $result $summary

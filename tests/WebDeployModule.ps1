@@ -1,5 +1,10 @@
-If (Test-Installed -Like "IIS URL Rewrite Module *") {
-  Out-TestResult "WebDeploy Module" "Pass" "WebDeploy module installed"
+$result = "Inconclusive"
+$summary = ""
+
+If (Test-Installed -Like "Microsoft Web Deploy *") {
+  $result = "Pass"
 } Else {
-  Out-TestResult "WebDeploy Module" "Fail" "Must have WebDeploy module installed"
+  $result = "Fail"
 }
+
+Out-TestResult "IIS WebDeploy Module" $result $summary

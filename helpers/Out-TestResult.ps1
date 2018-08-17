@@ -8,13 +8,13 @@ Function Out-TestResult {
     [string]$Result
     ,
     [Parameter(Position = 3)]
-    [string]$Description = $null
+    [string]$Summary = $null
   )
   Process {
     $obj = New-Object PSObject
     $obj | Add-Member NoteProperty "Name" $Name
+    $obj | Add-Member NoteProperty "Summary" $Summary
     $obj | Add-Member NoteProperty "Result" $Result
-    $obj | Add-Member NoteProperty "Description" $Description
     $obj
   }
 }

@@ -1,12 +1,19 @@
+$result = "Inconclusive"
+$summary = ""
+
 $iisKey = Get-ItemProperty "HKLM:\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\InetStp" -ErrorAction SilentlyContinue | Select-Object VersionString, MajorVersion, MinorVersion
 
 If ($iisKey -ne $null) {
   $iisVersion = [version]"$($iisKey.MajorVersion).$($iisKey.MinorVersion)"
   If ($iisVersion -ge [version]"8.5") {
-    Out-TestResult "IIS" "Pass" "IIS $($iisVersion) installed"
+    $result = "Pass"
+    $summary = "Found IIS v$($iisVersion)"
   } Else {
-    Out-TestResult "IIS" "Inconclusive" "Unsupported IIS version installed, $($osVersion)"
+    $summary = "Unsupported IIS version: $($osVersion)"
   }
 } Else {
-  Out-TestResult "IIS" "Fail" "Must have IIS 8.5/10 installed"
+  $result = "Fail"
+  $summary = "Not found/installed"
 }
+
+Out-TestResult "IIS 8.5/10.0" $result $summary

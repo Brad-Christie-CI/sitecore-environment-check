@@ -1,5 +1,10 @@
+$result = "Inconclusive"
+$summary = ""
+
 If (Test-Installed -Like "IIS URL Rewrite Module *") {
-  Out-TestResult "WebDeploy Module" "Pass" "Rewrite module installed"
+  $result = "Pass"
 } Else {
-  Out-TestResult "WebDeploy Module" "Fail" "Must have Rewrite module installed"
+  $result = "Fail"
 }
+
+Out-TestResult "IIS Rewrite Module" $result $summary
